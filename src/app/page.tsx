@@ -1,5 +1,18 @@
+'use client'
 import Image from 'next/image'
+import React ,{useEffect} from 'react';
 import styles from './page.module.css'
+import { invoke } from '@tauri-apps/api/tauri';
+
+function Greet() {
+  useEffect(() => {
+    invoke<string>('greet', { name: 'amamiya' })
+      .then(console.log)
+      .catch(console.error)
+  }, [])
+  // Necessary because we will have to use Greet as a component later.
+  return <></>
+}
 
 export default function Home() {
   return (
@@ -89,6 +102,7 @@ export default function Home() {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
+        <Greet/>
       </div>
     </main>
   )
